@@ -1,0 +1,503 @@
+{% load static %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% load crispy_forms_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900" rel="stylesheet">
+     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" style="color: #fff;">GCloud</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="webSize()">
+              <i class="fa-solid fa-desktop fa-xl" style="color: #fff;"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="mobileSize()">
+              <i class="fa-solid fa-mobile-screen fa-xl" style="color: #fff;"></i>
+            </a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <li class="nav-item">
+            {% if user.is_authenticated %}
+              <a href="{% url 'mainapp:pay' template_card.id %}">
+                <button class="btn btn-outline-success btn-success" type="button" style="color:#fff;">Purchase</button>
+              </a>
+              <li ><a href="{% url 'login:logout' %}" ><i class="fas fa-sign-out-alt"></i>
+                Logout</a></li>
+            {% else %}
+              <!-- <a href="{% url 'login:signin' %}">
+                <button class="btn btn-outline-success btn-success" type="button" style="color: #fff;">Login</button>
+              </a> -->
+              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal" style="text-decoration: none;color:#6c747a;background-color:#363836; display: inline-block; padding-left: 18px;padding-right: 18px;  text-align: center; line-height: 40px;">
+                Signin
+              </button>
+            {% endif %}
+          </li>
+        </div>
+        <!-- <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> -->
+      </div>
+    </div>
+  </nav>
+
+
+<style>
+  #encoder_frame {
+            width: 100%;
+            height: 100vh;
+            border: 0; /* Remove iframe border if needed */
+        }
+    
+</style>
+
+
+  <!-- LoginModal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+       <!-- LoginModal content-->
+       <div class="modal-content">
+         <div class="modal-header loginModalHeader" >
+          <h4 class="modal-title loginModalTitle" id="exampleModalLabel">
+              <!-- <span class="glyphicon glyphicon-lock"></span>  -->
+              GCloud
+          </h4>
+          <button type="button" class="close" data-bs-dismiss="modal" style="float: right;color: #fff;">&times;</button>
+      </div>
+         <div class="modal-body" style="padding:40px 50px;">
+          <h4 style="text-align: center;">Great to have you back!</h5>
+             <div class="text-center">
+                <!-- <h1>{% trans "Sign In" %}</h1> -->
+            
+                {% get_providers as socialaccount_providers %}
+            
+                {% if socialaccount_providers %}
+                <!-- <p>{% blocktrans with site.name as site_name %}Please sign in with one
+                of your existing third party accounts.<br>
+                Or, <a href="{{ signup_url }}">sign up</a>for a {{ site_name }} account and sign in below:
+                {% endblocktrans %}</p> -->
+            
+                <div class="socialaccount_ballot">
+                  <div class="socialaccount_providers">
+                    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                  </div>
+                  <div class="login-or border-top border-bottom my-3">{% trans 'or' %}</div>
+                </div>
+            
+                {% include "socialaccount/snippets/login_extra.html" %}
+            
+                {% else %}
+                <p>{% blocktrans %}If you have not created an account yet, then please
+                <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+                {% endif %}
+              </div>
+              <!-- <p style="text-align: center;">or</p> -->
+           <form role="form" action="{% url 'login:signin' %}" method="post" id="loginForm" onsubmit="return validateForm()">
+             {% csrf_token %}
+             <input type="hidden" name="next" value="{{ request.path }}">
+             <div class="form-group mb-4">
+               <label for="logusername" class="mb-1">Username</label>
+               <input type="text" class="form-control" id="logusrname" placeholder="Enter Username" name="logusername">
+             </div>
+             <div class="form-group mb-4">
+               <label for="logpassword" class="mb-1"> Password</label>
+               <label class="mb-1" style="float: right;"><a href="">Forgot</a></label>
+               <input type="password" class="form-control " id="logpassword" placeholder="Enter password" name="logpassword">
+             </div>
+               <button type="submit" class="btn btn-success btn-block form-control"> Login</button>
+               <!-- <p style="text-align: center;">Not a member? <a href="#" class="btn">Create a GCloud account</a></p> -->
+               <p style="text-align: center;">Not a member? 
+                <span style="color: #007bff;" data-bs-dismiss="modal" class="btn" data-bs-toggle="modal" data-bs-target="#signupModal">Create a GCloud account</span>
+            </p>
+            <div id="login-check"></div>
+           </form>
+         </div>
+         <div class="modal-footer footerLoginModal" style="background-color: #f9f9f9;">
+          <span class="">GCloud collects and uses personal data in accordance with our Privacy Policy. By creating an account, you agree to our Terms & Conditions.</span>
+         </div>
+       </div>
+
+     </div>
+ </div>
+ <!-- loginmodal close -->
+
+ <!-- signupModal -->
+ <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+       <!-- signinModal content-->
+       <div class="modal-content">
+         <div class="modal-header signupModalHeader" >
+          <h4 class="modal-title signupModalTitle" id="exampleModalLabel">
+              <span class="glyphicon glyphicon-lock"></span> GCloud
+          </h4>
+          <button type="button" class="close" data-bs-dismiss="modal" style="float: right;color: #fff;">&times;</button>
+      </div>
+         <div class="modal-body" style="padding:40px 50px;">
+          <h4 style="text-align: center;">Great to see you here!</h4>
+          <div class="text-center">
+             <!-- <h1>{% trans "Sign In" %}</h1> -->
+         
+             {% get_providers as socialaccount_providers %}
+         
+             {% if socialaccount_providers %}
+             <p style="opacity: 0.7;">Let’s set up your account in just a couple of steps.</p>
+             <!-- <p>{% blocktrans with site.name as site_name %}Please sign in with one
+             of your existing third party accounts.<br>Or, <a href="{{ signup_url }}">sign up</a>
+             for a {{ site_name }} account and sign in below:{% endblocktrans %}</p> -->
+         
+             <div class="socialaccount_ballot">
+         
+               <div class="socialaccount_providers">
+                 {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+               </div>
+         
+               <div class="login-or border-top border-bottom my-3">{% trans 'or' %}</div>
+         
+             </div>
+         
+             {% include "socialaccount/snippets/login_extra.html" %}
+         
+             {% else %}
+             <p>{% blocktrans %}If you have not created an account yet, then please
+             <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+             {% endif %}
+           </div>
+
+
+           
+           <form  onsubmit="return validateSignupForm()" method="post" action="{% url 'login:signup' %}">
+             {% csrf_token %}
+             <input type="hidden" name="next" value="{{ request.path }}">
+             <div class="form-group mb-4">
+               <label for="username" class="mb-1">Username</label>
+               <input type="text" class="form-control" id="username" placeholder="Enter Username" name="username">
+               
+             </div>
+             <div id="username-check"></div>
+
+             <div class="form-group mb-4">
+                <label for="email" class="mb-1">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email">
+                
+              </div>
+              <div id="email-check"></div>
+
+              <div class="form-group mb-4">
+                <label for="phone" class="mb-1">Phone Number</label>
+                <input class="form-control" id="inputPhone" type="tel" placeholder="enter phone number" value="{{phone}}" name="phone">
+              </div>
+              <div class="form-group mb-4">
+                <label for="password1" class="mb-1">Password</label>
+                <input type="password" class="form-control" id="password1" placeholder="Enter Password" name="password1" oninput="checkPasswordStrength()">
+                
+              </div>
+              <p id="strengthText"></p>
+
+             <div class="form-group mb-4">
+               <label for="password2" class="mb-1">Confirm Password</label>
+               <input type="password" class="form-control " id="password2" placeholder="Enter Confirm password" name="password2" oninput="checkPasswordMatch()">
+               
+             </div>
+             <p id="matchText"></p>
+
+               <button type="submit" class="btn btn-success btn-block form-control" onclick="validatePassword()"><span class="glyphicon glyphicon-off" style="color: white;"></span> Signup</button>
+               <p style="text-align: center;">Already have an Envato Account? 
+                <span style="color: #007bff;" data-bs-dismiss="modal" class="btn"  data-bs-toggle="modal" data-bs-target="#loginModal">Sign in here.</span>
+             </p>
+           </form>
+         </div>
+         <div class="modal-footer footerSignupModal" style="background-color: #f9f9f9;">
+          <span class="">GCloud collects and uses personal data in accordance with our Privacy Policy. By creating an account, you agree to our Terms & Conditions.</span>
+         </div>
+       </div>
+
+
+       
+<script>
+// country code mobile number
+const phoneInputField = document.querySelector("#inputPhone");
+const phoneInput = window.intlTelInput(phoneInputField, {
+utilsScript:
+"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+});
+</script>
+
+<!-- username already taken -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+//   document.addEventListener('DOMContentLoaded', function() {
+// Username validation
+document.getElementById('username').addEventListener('input', function() {
+var username = this.value;
+var errorMessage = document.getElementById('username-check');
+
+if (username) {
+ $.ajax({
+     type: "GET",
+     url: "{% url 'login:check_username' %}",
+     data: {'username': username},
+     dataType: 'json',
+     success: function(data) {
+         if (data.available) {
+             errorMessage.innerHTML = '';
+             errorMessage.style.color = 'green';
+             document.getElementById('registerButton').disabled = false;
+         } else {
+             errorMessage.innerHTML = 'Username already exists';
+             errorMessage.style.color = 'red';
+             document.getElementById('registerButton').disabled = true;
+         }
+     }
+ });
+} else {
+ errorMessage.innerHTML = '';
+ document.getElementById('registerButton').disabled = true;
+}
+});
+</script>
+
+
+<!-- email already taken -->
+<script>
+document.getElementById('email').addEventListener('input', function() {
+var email = this.value;
+var errorMessage = document.getElementById('email-check');
+
+if (email) {
+ $.ajax({
+     type: "GET",
+     url: "{% url 'login:check_email' %}",
+     data: {'email': email},
+     dataType: 'json',
+     success: function(data) {
+         if (data.available) {
+             errorMessage.innerHTML = '';
+             errorMessage.style.color = 'green';
+             document.getElementById('registerButton').disabled = false;
+         } else {
+             errorMessage.innerHTML = 'Email already exists';
+             errorMessage.style.color = 'red';
+             document.getElementById('registerButton').disabled = true;
+         }
+     }
+ });
+} else {
+ errorMessage.innerHTML = '';
+ document.getElementById('registerButton').disabled = true;
+}
+});
+</script>
+
+
+<!-- password matching and strength -->
+<script>
+document.getElementById('password1').addEventListener('input', function() {
+checkPasswordStrength();
+checkPasswordMatch();
+});
+
+// Confirm password validation
+document.getElementById('password2').addEventListener('input', function() {
+checkPasswordMatch();
+});
+// });
+
+function checkPasswordStrength() {
+var password = document.getElementById('password1').value;
+var strengthText = document.getElementById('strengthText');
+
+var missingCriteria = [];
+if (!/[A-Z]/.test(password)) missingCriteria.push('A-Z');
+if (!/[a-z]/.test(password)) missingCriteria.push('a-z');
+if (!/\d/.test(password)) missingCriteria.push('0');
+if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) missingCriteria.push('@');
+if (password.length < 8) missingCriteria.push('8 characters');
+
+strengthText.innerHTML = missingCriteria.length > 0 ? 'Password must have: ' + missingCriteria.join(', ') : '';
+}
+
+function checkPasswordMatch() {
+var password = document.getElementById('password1').value;
+var confirmPassword = document.getElementById('password2').value;
+var matchText = document.getElementById('matchText');
+
+matchText.innerHTML = password !== confirmPassword ? 'Passwords do not match' : '';
+}
+</script>
+
+
+
+<script>
+
+function validateSignupForm() {
+var username = document.getElementById('username').value.trim();
+var email = document.getElementById('email').value.trim();
+var password1 = document.getElementById('password1').value.trim();
+var password2 = document.getElementById('password2').value.trim();
+
+// Check if username, email, and password are not empty
+if (username === '' || email === '' || password1 === '' || password2 === '') {
+// If any of the fields is empty, return false to prevent form submission
+return false;
+}
+
+// Check if username is already taken
+var usernameErrorMessage = document.getElementById('username-check').innerHTML;
+if (usernameErrorMessage && usernameErrorMessage.includes('already exists')) {
+return false;
+}
+
+// Check if email is already taken
+var emailErrorMessage = document.getElementById('email-check').innerHTML;
+if (emailErrorMessage && emailErrorMessage.includes('already exists')) {
+return false;
+}
+
+// Check if password meets strength criteria
+var strengthErrorMessage = document.getElementById('strengthText').innerHTML;
+if (strengthErrorMessage && strengthErrorMessage !== '') {
+return false;
+}
+
+// Check if password and confirm password match
+var matchErrorMessage = document.getElementById('matchText').innerHTML;
+if (matchErrorMessage && matchErrorMessage !== '') {
+return false;
+}
+
+// If all conditions are met, return true to allow form submission
+return true;
+}
+</script>
+       
+     </div>
+ </div>
+ <!-- signinmodal close -->
+</div>
+
+
+<div id="web">
+<!--  <div class="embed-responsive embed-responsive-16by9">-->
+<!--           <iframe class="embed-responsive-item" src="main.html" style="width:100%;height:600px;" allowfullscreen></iframe>-->
+<!--  </div>-->
+  <!-- <iframe srcdoc="{{content}}" style="width:100%;height:680px;" id="encoder_frame"></iframe> -->
+  <iframe srcdoc="{{content}}" id="encoder_frame"></iframe>
+
+    <script>
+        // Resize the iframe height when the window is resized
+        window.addEventListener('resize', function() {
+            var iframe = document.getElementById('encoder_frame');
+            iframe.style.height = window.innerHeight + 'px';
+        });
+
+        // Set initial height on page load
+        window.addEventListener('load', function() {
+            var iframe = document.getElementById('encoder_frame');
+            iframe.style.height = window.innerHeight + 'px';
+        });
+    </script>
+</div>
+
+<!-- <div id="mobile" style="display:none;">
+  <div class="container">
+    <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" style="margin-top:20px;">
+      <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+      <div class="col-md-12">
+      <iframe srcdoc="{{content}}" style="width:100%;height:500px;" scrolling="auto;"></iframe>
+    </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+      </div>
+  </div>
+</div> -->
+
+<style>
+  div.mobile-wrapper {
+    position: relative;
+    padding-top: 25px;
+    padding-bottom: 67.5%;
+    height: 0;
+}
+div.mobile-wrapper iframe {
+    box-sizing: border-box;
+    background: url(https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsb2ZmaWNlOF9waG90b2dyYXBoeV9vZl9zbWFydHBob25lX21vY2t1cF9fdGhlX3N1bl9iaXJkX18yNGY4ZDkwNC03NTk5LTRjM2EtYjNjYi1iMjY3ODlmZjg1ZDBfMS5wbmc.png) center center no-repeat;
+    /* background: url(https://juliamenndez.com/wp-content/uploads/mobile-frame.png) center center no-repeat; */
+    background-size: contain;
+    padding: 7% 38.4% 12.8%;;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+</style>
+<div id="mobile" style="display:none;">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="mobile-wrapper">
+        <iframe width="633" height="1020" srcdoc="{{content}}" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<script>
+  function webSize(){
+    document.getElementById("web").style.display = "block" ;
+    document.getElementById("mobile").style.display = "none" ;
+  }
+
+  function mobileSize(){
+    document.getElementById("web").style.display = "none";
+    document.getElementById("mobile").style.display = "block";
+  }
+</script>
+<script>
+function loginAlert() {
+  alert("Please login first!");
+}
+</script>
+<!--<script type="text/javascript">function loginAlert(){if (confirm("click ok to continue")) window.location = "link.html";}</script>-->
+</body>
+</html>

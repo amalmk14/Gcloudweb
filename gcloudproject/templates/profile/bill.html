@@ -1,0 +1,545 @@
+{% load static %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% load crispy_forms_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Shop List Sidebar - Organic - Food E-commerce HTML Template</title>
+   <!-- favicon icon -->
+   <link rel="shortcut icon" href="static/home/assets/images/icons/favicon.ico" type="image/x-icon">
+
+   <!-- Include fontawesome cdn -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   <!-- Include google fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet">
+ <!-- Include jQuery -->
+ <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   <!-- Include bootstrap CSS -->
+   <link rel="stylesheet" href="{%static 'home/assets/css/bootstrap.min.css' %}">
+
+   <!-- Include aos CSS -->
+   <link rel="stylesheet" href="{%static 'home/assets/css/aos.css' %}">
+
+   <!-- Include magnific-popup CSS -->
+   <link rel="stylesheet" href="{%static 'home/assets/css/magnific-popup.css' %}">
+
+   <!-- Include nice-select CSS -->
+   <link rel="stylesheet" href="{%static 'home/assets/css/nice-select.css' %}">
+
+   <!-- Include slick CSS -->
+   <link rel="stylesheet" href="{%static 'home/assets/css/jquery-ui.css' %}">
+
+   <!-- Include slick-theme CSS -->
+   <link rel="stylesheet" href="{%static 'home/assets/css/slick-theme.css' %}">
+
+   <!-- Include slick CSS -->
+    <link rel="stylesheet" href="{%static 'home/assets/css/slick.css' %}">
+   <!-- Include stylesheet CSS -->
+   <link rel="stylesheet" href="{% static 'home/assets/css/styles.css' %}">
+   <link rel="stylesheet" href="{% static 'home/assets/css/stylenew.css' %}">
+
+
+</head>
+
+<body>
+   <!-- body wrap start -->
+   <div class="body-wrap overflow-hidden">
+      <!-- back-to-top start -->
+      <div class="backtotop">
+         <a href="#!" class="scroll">
+            <i class="far fa-arrow-up fw-bold"></i>
+         </a>
+      </div>
+      <!-- back-to-top end -->
+
+
+      <!-- header section start -->
+      <header class="about_header position-relative" style="background-color: #1d211e;">
+         <!-- top header start -->
+         <div class="top_header_main position-relative bg-dark">
+            <div class="container d-none d-md-block">
+               <div class="header_top d-flex align-items-center justify-content-between">
+                  <div class="header_top_content d-flex pt-2">
+                  </div>
+               </div>
+            </div>
+            <!-- top header end -->
+
+            <!-- top inner navbar start -->
+            <div class="top_inner_main" style="background-color: #1d211e;">
+               <div class="top_inner_wrap">
+                  <div class="container">
+                     <div
+                        class="top_inner_content about_inner_cont d-flex justify-content-between align-items-center py-3" >
+                        <div class="top_inner_logo d-flex justify-content-between align-items-center" >
+                           <a class="drop_bars text-dark me-4" href="#!" data-bs-toggle="offcanvas"
+                              data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"
+                              aria-expanded="false" aria-label="Toggle navigation">
+                              <i class="fas fa-bars" style="color: #fff;"></i>
+                           </a>
+                           <a href=""><h1 style="color: #fff;">GCloud</h1>
+                           </a>
+                        </div>
+                        <div class="top_inner_searchbar about_search position-relative d-none d-lg-block">
+                        </div>
+                        <div class="main_search_btn3 d-block d-lg-none ms-auto me-3" data-bs-toggle="collapse"
+                           data-bs-target="#main_search_collapse" aria-expanded="false"
+                           aria-controls="main_search_collapse">
+                        </div>
+
+                        {% if user.is_authenticated %}
+                        <div class="navbar_user me-2">
+                           <div class="navbar_user_icon">
+                              <ul class="list-unstyled d-flex mb-0">
+                                 <li class="pe-3 position-relative">
+                                    <a href="#collapseExample" data-bs-toggle="collapse" href="#collapseExample"
+                                       role="button" aria-expanded="false" aria-controls="collapseExample"><i
+                                          class="far fa-user" data-toggle="collapse" role="button"
+                                          data-target="#use_deropdown" aria-expanded="false"
+                                          aria-controls="use_deropdown"></i>
+                                    </a>
+                                    <!-- user profile start -->
+                                    
+                                    <div id="collapseExample" class="collapse_dropdown collapse">
+                                       <div class="dropdown_content">
+                                          <div class="profile_info clearfix">
+                                             <div class="user_thumbnail">
+                                                <img src="static/home/assets/images/meta/meta1.png" alt="image_not_found">
+                                             </div>
+                                             <div class="user_content">
+                                                <h4 class="user_name"> {{ name }}</h4>
+                                             </div>
+                                          </div>
+                                          <ul class="settings_options ul_li_block clearfix">
+                                             <li><a href="{% url 'login:profile_page' %}"><i class="fas fa-user-circle"></i>
+                                                   Profile</a></li>
+                                             <li><a href="{% url 'login:logout' %}"><i class="fas fa-sign-out-alt"></i>
+                                                   Logout</a></li>
+                                          </ul>
+                                       </div>
+                                    </div>
+                                 </li>
+                                 <!-- <li class="pe-3"><a href="#!"><i class="far fa-heart"></i></a></li>
+                                 <li><a href="#!"><i class="fas fa-shopping-bag position-relative"
+                                          data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                                          aria-controls="offcanvasRight"><span
+                                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span></i></a>
+                                 </li> -->
+                              </ul>
+                           </div>
+                        </div>
+                        {% else %}
+                        <div class="navbar_user me-2">
+                           <div class="navbar_user_icon">
+                              <ul class="list-unstyled d-flex mb-0">
+                                 <li class="pe-3 position-relative">
+                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal" style="text-decoration: none;color:#6c747a;background-color:#363836; display: inline-block; padding-left: 18px;padding-right: 18px;  text-align: center; line-height: 40px;">
+                                       Signin
+                                     </button>
+                                    <!-- <a href="{% url 'login:signin' %}" style="text-decoration: none;color:#6c747a;background-color:#363836; display: inline-block; padding-left: 18px;padding-right: 18px;  text-align: center; line-height: 50px;">Sign-in</a> -->
+                                    <!-- <a href="{% url 'login:signin' %}" style="text-decoration: none;color: #000;background-color: #fff;display: inline-block; width: 50px; height: 50px; border: 2px solid #000; border-radius: 50%; text-align: center; line-height: 50px;">Login </a>--->
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                        {% endif %}
+                     </div>
+                     <!-- mobile menubar start -->
+                     <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+                        id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" style="background-color: #1d211e;">
+                        <div class="offcanvas-header">
+                           <button type="button" class="btn-close mobile_menu_close text-reset"
+                              data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                           <ul class="navbar-nav main_menu_list m-auto">
+                              <li class="nav-item pe-4 dropdown" >
+                                 <a class="nav-link active" aria-current="page" href="#" id="home_submenu" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false" >Home</a>
+                              </li>
+                              <li class="nav-item pe-4 dropdown">
+                                 <a class="nav-link" href="#" id="shop_submenu" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">Shop</a>
+                              </li>
+                              <li class="nav-item pe-4 dropdown">
+                                 <a class="nav-link" href="#" id="blog_submenu" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">Blog</a>
+                              </li>
+                              <li class="nav-item pe-4 dropdown">
+                                 <a class="nav-link" href="#!">Portfolio</a>
+                              </li>
+                              <li class="nav-item pe-4 dropdown">
+                                 <a class="nav-link" href="#" id="page_submenu" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">Pages</a>
+                              </li>
+                              <li class="nav-item pe-4 dropdown">
+                                 <a class="nav-link" href="#" id="contact_submenu" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">Contacts</a>
+                              </li>
+                           </ul>
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- top inner navbar end -->
+
+            <!-- bottom header start -->
+            <div class="header_bottom_main header_border position-relative d-none d-lg-block" style="background-color: #1d211e;">
+               <div class="container" >
+                  <nav class="navbar navbar-expand-lg navbar-dark" >
+                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                     </button>
+                     <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+                        <ul class="navbar-nav navbar_4 main_menu_list after_navbar">
+                           <li class="nav-item nav_item_has_child px-2 dropdown">
+                              <a class="nav-link active" aria-current="page" href="#" id="home_submenu" role="button"
+                                 data-bs-toggle="dropdown" aria-expanded="false">Home</a>
+                           </li>
+                           <li class="nav-item nav_item_has_child px-2 dropdown">
+                              <a class="nav-link" href="#" id="shop_submenu" role="button" data-bs-toggle="dropdown"
+                                 aria-expanded="false">Shop</a>
+
+                           </li>
+                           <li class="nav-item nav_item_has_child px-2 dropdown">
+                              <a class="nav-link" href="#" id="blog_submenu" role="button" data-bs-toggle="dropdown"
+                                 aria-expanded="false">Blog</a>
+                           </li>
+                           <li class="nav-item nav_item_has_child px-2">
+                              <a class="nav-link" href="#!">Portfolio</a>
+                           </li>
+                           <li class="nav-item nav_item_has_child px-2 dropdown">
+                              <a class="nav-link" href="#" id="page_submenu" role="button" data-bs-toggle="dropdown"
+                                 aria-expanded="false">Pages</a>  
+                           </li>          
+                  </nav>
+               </div>
+            </div>
+      </header>
+
+
+    <div class="container-fluid">
+        <div class="row" style="border-bottom: 1px solid #e4e6eb;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="margin-top: 4%;">
+                <h1>Usename</h1>
+                <h4>email</h4>
+                <div class="d-flex" style="margin-top: 4%;">
+                    <div class="row">
+                        <div class="col-md-4 btn"><p>Profile</p></div>
+                        <div class="col-md-4 btn"><p><b>Bills</b></p></div>
+                        <div class="col-md-4 btn"><p>Settings</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="background-color: #fff;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="margin-top: 2%;" id="PersonalDetails">
+                <div style="border: 1px solid #e4e6eb;border-bottom: none; padding: 20px;">
+                    <h5 >Personal Information</h5>
+                </div>
+                <div style="border: 1px solid #e4e6eb;padding: 20px;">
+                    <p>We do not sell or share your details without your permission. Find out more in our Privacy Policy.
+                           Your username, email and password can be updated via your Envato Account settings.</p>
+                </div>
+                <div style="border: 1px solid #e4e6eb;padding: 20px;border-bottom: none; margin-top: 5%;">
+                     Bills Details
+                </div>
+                <div style="border: 1px solid #e4e6eb;padding: 20px;">
+                    <div class="row">
+                        <div class="col-sm-4 mb-4">
+                            <div class="card h-100 border-start-lg border-start-primary">
+                                <div class="card-body">
+                                    <div class="small text-muted">Order Date</div>
+                                    <div class="h3">{{ payment_success.payment_date|date:"m/d/Y" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-4">
+                            <div class="card h-100 border-start-lg border-start-secondary">
+                                <div class="card-body">
+                                    <div class="small text-muted">Next payment due</div>
+                                    <div class="h3">{{ payment_success.expiry_date|date:"m/d/Y" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-4">
+                            <div class="card h-100 border-start-lg border-start-success">
+                                <div class="card-body">
+                                    <div class="small text-muted">Current plan</div>
+                                    <div class="h3 d-flex align-items-center">{{order.template_name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div style="border: 1px solid #e4e6eb;border-bottom: none; padding: 20px;"> -->
+                    <div class="card mb-4" style="margin-top: 3%;margin-bottom: 20%;">
+                        <div class="card-header">Billing History</div>
+                        <div class="card-body p-0">
+                            <!-- Billing history table -->
+                            <div class="table-responsive table-billing-history">
+                                <table class="table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-gray-200" scope="col">Transaction ID</th>
+                                            <th class="border-gray-200" scope="col">Purchase Date</th>
+                                            <th class="border-gray-200" scope="col">Expiry Date</th>
+                                            <th class="border-gray-200" scope="col">Next Payment Date</th>
+                                            <th class="border-gray-200" scope="col">Amount</th>
+                                            <th class="border-gray-200" scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for payment_success in payment_success_list %}
+                                            <tr>
+                                                <td>#{{ payment_success.order.order_id }}</td>
+                                                <td>{{ payment_success.payment_date|date:"m/d/Y" }}</td>
+                                                <td>{{ payment_success.expiry_date|date:"m/d/Y" }}</td>
+                                                <td>
+                                                    {% if payment_success.countdown > 0 %}
+                                                        {{ payment_success.expiry_date|date:"m/d/Y" }} (Next Payment)
+                                                    {% else %}
+                                                        N/A
+                                                    {% endif %}
+                                                </td>
+                                                <td>${{ payment_success.order.final_amount }}</td>
+                                                <td>
+                                                    {% if payment_success.payment_status %}
+                                                        <span class="badge bg-success">Paid</span>
+                                                    {% else %}
+                                                        <span class="badge bg-light text-dark">Pending</span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+                
+
+        
+            </div>
+        </div>
+        
+   <footer class="footer_section position-relative" style="background-color: black;margin-top: 7%;">
+    <div class="footer_section_wrap sec_top_space_50"
+       style="background-image: url(static/home/assets/images/footer/footer.png)">
+       <div class="container">
+          <div
+             class="footer_top_content d-flex flex-column flex-lg-row justify-content-between align-items-center">
+             <div class="footer_top_logo">
+                <!-- <a href="shop-list-sidebar.html"><img src="static/home/assets/images/logo/logo2.png" alt="image_not_found"></a> -->
+                <a href="" style="text-decoration: none;"><h1 style="color: #fff;">GCloud</h1></a>
+             </div>
+             <div class="footer_top_subs position-relative">
+                <input class="rounded-pill" type="search" name="search" placeholder="Your Phone Number">
+                <a href="#!"><button type="button"
+                      class="btn custom_btn rounded-pill text-white position-absolute">Subscribe Now <i
+                         class="fas fa-long-arrow-alt-right"></i></button></a>
+             </div>
+             <div class="footer_top_social">
+                <ul class="list-unstyled d-flex justify-content-end">
+                   <li class="me-3"><a href="#!"><i class="fab fa-twitter"></i></a></li>
+                   <li class="me-3"><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
+                   <li class="me-3"><a href="#!"><i class="fab fa-youtube"></i></a></li>
+                   <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
+                </ul>
+             </div>
+          </div>
+          <div class="footer_inner_content sec_space_xs_70">
+             <div class="footer_inner_content_wrap">
+                <div class="row">
+                   <div class="col-md-6 col-lg-3">
+                      <div class="footer_inner_choose_content">
+                         <div class="footer_inner_choose_title">
+                            <h4>
+                               <a href="#!" class="text-white">Why People Like us</a>
+                            </h4>
+                         </div>
+                         <div class="footer_inner_choose_desc pt-2">
+                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                               ut aliquip ex ea
+                               commodo. Build your online store with WooCommerce the most popular </p>
+                         </div>
+                         <div class="footer_inner_choose">
+                            <a href="#!"><button type="button"
+                                  class="btn custom_btn rounded-pill px-4 text-white">View More <i
+                                     class="fas fa-long-arrow-alt-right"></i></button></a>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-md-6 col-lg-3">
+                      <div class="footer_inner_info_content">
+                         <div class="footer_inner_info_title">
+                            <h4>
+                               <a href="#!" class="text-white">Information</a>
+                            </h4>
+                         </div>
+                         <div class="footer_inner_info_item pt-2">
+                            <ul class="list-unstyled">
+                               <li><a href="#!">About Us</a></li>
+                               <li><a href="#!">Delivery Information</a></li>
+                               <li><a href="#!">Privacy Policy</a></li>
+                               <li><a href="#!">Terms & Conditions</a></li>
+                               <li><a href="#!">Return Policy</a></li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-md-6 col-lg-3">
+                      <div class="footer_inner_acct_content">
+                         <div class="footer_inner_acct_title">
+                            <h4>
+                               <a href="#!" class="text-white">My Account</a>
+                            </h4>
+                         </div>
+                         <div class="footer_inner_acct_item pt-2">
+                            <ul class="list-unstyled">
+                               <li><a href="#!">My Account</a></li>
+                               <li><a href="#!">Shopping Cart</a></li>
+                               <li><a href="#!">Wishlist</a></li>
+                               <li><a href="#!">Order History</a></li>
+                               <li><a href="#!">International Orders</a></li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-md-6 col-lg-3">
+                      <div class="footer_inner_cotc_content">
+                         <div class="footer_inner_ctc_title">
+                            <h4>
+                               <a href="#!" class="text-white">Contact Us</a>
+                            </h4>
+                         </div>
+                         <div class="footer_inner_ctc_info pt-2 text-white">
+                            <p>Address: <font>1429 Netus Rd, NY 48247</font>
+                            </p>
+                            <p>Email: <font>Organi@gmail.com</font>
+                            </p>
+                            <p>Phone: <font>(+87) 4886-4174</font>
+                            </p>
+                            <div class="footer_inner_payment_ctc">
+                               <div class="footer_inner_payment_title">
+                                  <h5 class="text-white">Payment Accepted</h5>
+                               </div>
+                               <div class="footer_inner_payment_thumb pt-3">
+                                  <a href="#!"><img src="static/home/assets/images/payment/payment.png"
+                                        alt="image_not_found"></a>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <div class="footer_bootom_content">
+             <div class="footer_bootom_wrap">
+                <div class="container">
+                   <div class="row">
+                      <div class="col-md-6">
+                         <div class="footer_bootom_copyright">
+                            <p>Copyright © 2022 <font>ORGANI</font> Inc. All rights reserved.</p>
+                         </div>
+                      </div>
+                      <div class="col-md-6">
+                         <div class="footer_bootom_privicy_cont d-flex justify-content-center align-items-center">
+                            <div class="footer_bootom_privicy pe-5">
+                               <a href="#!">
+                                  <p class="priv position-relative">Privacy Policy</p>
+                               </a>
+                            </div>
+                            <div class="footer_bootom_terms pe-5">
+                               <p class="position-relative">Terms of Use</p>
+                            </div>
+                            <div class="footer_bootom_refunds">
+                               <p>Sales and Refunds</p>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </footer>
+    </div>
+    
+
+
+   <!-- body wrap end -->
+<style>
+    
+</style>
+
+
+
+   <!-- <script src="static/home/assets/js/signinSignup.js"></script> -->
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+
+   <!-- Include jquery js -->
+   <script src="{%static 'home/assets/js/jquery.min.js' %}"></script>
+
+   <!-- Include bootstrap-bundle js -->
+   <script src="{%static 'home/assets/js/bootstrap.bundle.min.js' %}"></script>
+
+   <!-- Include aos js -->
+   <script src="{%static 'home/assets/js/jquery-ui.js' %}"></script>
+
+   <!-- Include aos js -->
+   <script src="{%static 'home/assets/js/aos.js' %}"></script>
+
+   <!-- Include jquery-magnific-popup js -->
+   <script src="{%static 'home/assets/js/magnific-popup.min.js' %}"></script>
+
+   <!-- Include nice-select js -->
+   <script src="{%static 'home/assets/js/nice-select.min.js' %}"></script>
+
+   <!-- Include jquery-countdown js -->
+   <script src="{%static 'home/assets/js/countdown.min.js' %}"></script>
+
+   <!-- Include slick js -->
+   <script src="{%static 'home/assets/js/slick.min.js' %}"></script>
+
+   <!-- Include custom js -->
+   <script src="{%static 'home/assets/js/custom.js' %}"></script>
+
+   <script src="{%static 'home/assets/js/homeCategories.js' %}"></script>
+
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+   
+
+</body>
+
+</html>
